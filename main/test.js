@@ -38,6 +38,11 @@ npcs.add(
   npcs
     .n("Even")
     .goTo(locs.n("The Dark Cave"));
+
+  // npcs
+  //   .n("Even")
+  //   .note("Entered Dark Cave", "We arrived just before nightfall...");
+  
   
   npcs
     .n("Odd")

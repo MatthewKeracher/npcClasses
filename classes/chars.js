@@ -16,11 +16,11 @@ class Character extends Entry {
     this.id = char?.id || crypto.randomUUID(); // Generates a UUID
    
     this.race = this.getRace(char?.race || "Human");
-    this.class = this.getClass(char?.class || "Fighter");
-    this.save = this.getSaveThrows(char?.class || "Fighter");
-
+  
     this.alignment = char?.alignment || "Neutral Neutral";
     this.text = char?.text || "Write something interesting here.";
+
+    Object.assign(this, this.getClass(char?.class || "Fighter"));
 
   }
 
@@ -31,7 +31,17 @@ class Character extends Entry {
     const levelEntry = classEntry.levels[this.level];
     const saveEntry = classEntry.savingThrows[this.level];
 
-    return levelEntry;
+    const classState = {
+
+      class: className,
+      hitDice: levelEntry.hitDice,
+      attackBonus: levelEntry.attackBonus,
+      xp: levelEntry.xp,
+      savingThrows: saveEntry,
+
+    }
+    
+    return classState;
   
   }
 
@@ -43,18 +53,8 @@ class Character extends Entry {
     return raceEntry;
   
   }
-
-  getSaveThrows(className){
-
-    const system = EXCEL_DM.system;
-    const classEntry = system.classes.find(classEntry => classEntry.name === className);
-    const saveEntry = classEntry.savingThrows[this.level];
-
-    return saveEntry;
-
-  }
-
-
+ 
+ 
   addItem(itemType, itemName){
 
     const items = EXCEL_DM.note.Items[itemType];

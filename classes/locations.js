@@ -39,6 +39,7 @@ class Location extends Entry {
       const exists = this.occupants.includes(occupant);
         if(!exists){
             this.occupants.push(occupant);
+            occupant.note(`Entered ${this.name}`, `${occupant.name} the ${occupant.race.race} ${occupant.class} went to ${this.name}`)
             return `${occupant.name} is now at ${this.name}.`
         }else{
             return `${occupant.name} is already at ${this.name}.`
