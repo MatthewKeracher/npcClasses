@@ -24,6 +24,7 @@ npcs.add(
       name: "Even",
       description: "A brave warrior from the north.",
       alignment: "Chaotic Good",
+      race:"Halfling"
     })
   );
   
@@ -34,6 +35,8 @@ npcs.add(
   );
   
   npcs.n("Even").increaseLevel;
+
+
   
   npcs
     .n("Even")

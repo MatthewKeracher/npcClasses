@@ -10,50 +10,82 @@ class Character extends Entry {
 
   constructor(char) {
 
-    super(char)
+    super(char);
+
     this.name = char?.name || "Anatoly Anonymous";
-    this.level = char?.level || 1;
-    this.id = char?.id || crypto.randomUUID(); // Generates a UUID
+    this.level = char?.level || "1";
    
-    this.race = this.getRace(char?.race || "Human");
-  
+    this.race = char?.race || "Human";
+    this.class = char?.class || "Fighter"; 
+    
+    this.stats = {
+      str: char?.stats?.str || rollDice(3, 6),
+      dex: char?.stats?.dex || rollDice(3, 6),
+      con: char?.stats?.con || rollDice(3, 6),
+      int: char?.stats?.int || rollDice(3, 6),
+      wis: char?.stats?.wis || rollDice(3, 6),
+      cha: char?.stats?.cha || rollDice(3, 6),
+      luk: char?.stats?.luk || rollDice(3, 6),
+    };
+
     this.alignment = char?.alignment || "Neutral Neutral";
     this.text = char?.text || "Write something interesting here.";
 
-    Object.assign(this, this.getClass(char?.class || "Fighter"));
+    this.id = char?.id || crypto.randomUUID(); // Generates a UUID
 
   }
 
-  getClass(className){
+  get hitPoints() {
+    const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
+    const hitEntry = classEntry.levels[this.level].hitDice;
 
-    const system = EXCEL_DM.system;
-    const classEntry = system.classes.find(classEntry => classEntry.name === className);
-    const levelEntry = classEntry.levels[this.level];
-    const saveEntry = classEntry.savingThrows[this.level];
+    const hitDiceParsed = parseDice(hitEntry);
+    const hitDiceRoll = rollDice(hitDiceParsed.numDice, hitDiceParsed.diceSides);
+    const conModifier = getModifiers(this.stats.con)
 
-    const classState = {
+    return hitDiceRoll + conModifier
+  }
 
-      class: className,
-      hitDice: levelEntry.hitDice,
-      attackBonus: levelEntry.attackBonus,
-      xp: levelEntry.xp,
-      savingThrows: saveEntry,
+  get melee(){
 
+    const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
+    const attackBonus = classEntry.levels[this.level].attackBonus;
+    const strModifier = getModifiers(this.stats.str)
+
+    return rollDice() + attackBonus + strModifier;
+
+  }
+
+  get ranged(){
+
+    const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
+    const attackBonus = classEntry.levels[this.level].attackBonus;
+    const dexModifier = getModifiers(this.stats.dex)
+
+    return rollDice() + attackBonus + dexModifier;
+
+  }
+
+  get saveThrows() {
+    const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
+    const saveThrows = classEntry.savingThrows[this.level];
+    const modifiers = EXCEL_DM.system.races[this.race];
+
+    const moddedSaveThrows = {};
+
+    for (const save in saveThrows) {
+      moddedSaveThrows[save] = parseInt(saveThrows[save])- parseInt(modifiers[save]);
     }
-    
-    return classState;
-  
+
+    return moddedSaveThrows;
+
   }
 
-  getRace(raceName){
-
-    const system = EXCEL_DM.system;
-    const raceEntry = system.races[raceName];
-
-    return raceEntry;
-  
+  get xp() {
+    const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
+    return classEntry.levels[this.level].XP;
   }
- 
+  
  
   addItem(itemType, itemName){
 
@@ -86,6 +118,8 @@ class Character extends Entry {
   }
 
 }
+
+
 
 
 
