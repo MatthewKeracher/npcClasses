@@ -1,9 +1,3 @@
-class Characters {
-  constructor({ name, type }) {
-    this.name = name;
-    this.type = type;
-  }
-}
 
 class Character extends Entry {
   type = "character";

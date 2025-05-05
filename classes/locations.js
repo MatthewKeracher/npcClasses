@@ -1,9 +1,3 @@
-class Locations {
-  constructor({ name, type }) {
-    this.name = name;
-    this.type = type;
-  }
-}
  
 class Location extends Entry {
   type = "location";
