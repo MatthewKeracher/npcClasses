@@ -25,7 +25,7 @@ class Entry { //Master Class for all Entry types; ex. NPCs, Locations.
   
   }
 
-  class Note {
+  class Note { //Notes should not contain notes.
 
     name = "";
     id = "";

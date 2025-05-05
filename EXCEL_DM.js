@@ -2281,10 +2281,10 @@ const EXCEL_DM =  {
 ],
 
 "races": {
-"Halfling" : { race: 'halfling', DR: 4, MW: 4, PP: 4, DB: 3, spells: 4 },
-"Human" : { race: 'human', DR: 0, MW: 0, PP: 0, DB: 0, spells: 0 },
-"Elf" : { race: 'elf', DR: 0, MW: 2, PP: 1, DB: 0, spells: 2  },
-"Dwarf" : { race: 'dwarf', DR: 4, MW: 4, PP: 4, DB: 3, spells: 4 },
+"Halfling" : { race: 'halfling', DR: 4, MW: 4, PP: 4, DB: 3, S: 4 },
+"Human" : { race: 'human', DR: 0, MW: 0, PP: 0, DB: 0, S: 0 },
+"Elf" : { race: 'elf', DR: 0, MW: 2, PP: 1, DB: 0, S: 2  },
+"Dwarf" : { race: 'dwarf', DR: 4, MW: 4, PP: 4, DB: 3, S: 4 },
 },
 
 "modifiers": [

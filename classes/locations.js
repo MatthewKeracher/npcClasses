@@ -8,7 +8,7 @@ class Location extends Entry {
       super(location)
       this.name = location?.name || "Unknown Location";
       this.text = location?.text || "A point in space.";
-      this.id = "0.0.1.2"
+      this.id = "0.0.1.2" // Conforms to Map Location
       this.type = location?.type || "Location";
     }
   
@@ -16,7 +16,7 @@ class Location extends Entry {
       return this.occupants;
     }
 
-    addSub(location){
+    addSub(location){ //Add Location inside this Location
       const alreadySub = this.subLocations.includes(location);
       const isTheirSub = location.subLocations.includes(this);
       
