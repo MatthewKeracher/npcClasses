@@ -28,9 +28,6 @@ class Character extends Entry {
     const levelEntry = classEntry.levels[this.level];
     const saveEntry = classEntry.savingThrows[this.level];
 
-    log(levelEntry)
-    log(saveEntry)
-
     return levelEntry;
   
   }
@@ -38,7 +35,7 @@ class Character extends Entry {
 
   addItem(itemType, itemName){
 
-    const items = EXCEL_DM.journal.Items[itemType];
+    const items = EXCEL_DM.note.Items[itemType];
     const itemEntry = items.find(itemEntry => itemEntry.name === itemName);
 
     if(!this.items[itemType]){this.items[itemType] = []};

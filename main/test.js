@@ -47,11 +47,18 @@ npcs.add(
     .n("The Dark Cave")
     .remChar(npcs.n("Odd"));
 
+    locs
+    .n("The Dark Cave")
+    .note("Note Number 1"); 
+
+    locs
+    .n("The Dark Cave")
+    .note("Note Number 2"); 
 
 
 
-npcs.all().forEach((char) => {
-  // log(`${JSON.stringify(char.class)}`);
+locs.all().forEach((entry) => {
+  log(entry)
 });
 
 

@@ -3,7 +3,7 @@ function createEXCEL_DM(){
 
 const EXCEL_DM =  {
 
-"journal":{
+"note":{
 
 "Favourites":[],
 
@@ -5912,7 +5912,7 @@ lastCell:{},
 regionObj:{},
 season: "Spring",
 weather: null,
-nextEncounter: `<div class="noSave randomEncounter"><i>Press space bar at the start of each turn to roll for random encounters, etc. Random encounter settings can be changed in the Journal (Esc) entry for the region you are currently in.</i><br><br><hr><br></div>`
+nextEncounter: `<div class="noSave randomEncounter"><i>Press space bar at the start of each turn to roll for random encounters, etc. Random encounter settings can be changed in the note (Esc) entry for the region you are currently in.</i><br><br><hr><br></div>`
 
 },
 

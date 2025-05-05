@@ -32,27 +32,4 @@ class Manager { //Added level of abstraction for all classManagers.
     }
   }
 
-
-  class Entry { //Master Class for all Entry types; ex. NPCs, Locations.
-    name = "";
-    id = "";
-    journal = []; //Journal Class on all Entries.
-    color = "rgba(0, 255, 0, 1)";
-    text = "";
-
-
-    constructor() {
-      this.name = "Untitled Entry";
-      this.id = 0;
-      this.journal = [];
-      this.color = "rgba(0, 255, 0, 1)";
-      this.text = `This is ${this.name}.`
-    }
-
-    note(text){
-
-    this.journal.push(text)
-
-    }
   
-  }

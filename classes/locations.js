@@ -18,7 +18,7 @@ class Location extends Entry {
 
     addSub(location){
       const alreadySub = this.subLocations.includes(location);
-      const isTheirSub = location.subLocations.includes(this)
+      const isTheirSub = location.subLocations.includes(this);
       
       if(!alreadySub && !isTheirSub){
         this.subLocations.push(location);
