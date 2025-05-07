@@ -1,4 +1,3 @@
-
 class Character extends Entry {
   type = "character";
   level = 0;
@@ -35,6 +34,8 @@ class Character extends Entry {
 
   }
 
+
+
   get hitPoints() {
     const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
     const hitEntry = classEntry.levels[this.level].hitDice;
@@ -65,7 +66,7 @@ class Character extends Entry {
     return rollDice() + attackBonus + dexModifier;
 
   }
-
+ 
   get saveThrows() {
     const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
     const saveThrows = classEntry.savingThrows[this.level];
@@ -85,7 +86,42 @@ class Character extends Entry {
     const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
     return classEntry.levels[this.level].XP;
   }
-  
+
+  get skills(){
+    const classEntry = EXCEL_DM.system.classes.find(classEntry => classEntry.name === this.class);
+    
+    if(classEntry.skills){
+      return classEntry.skills[this.level]
+    }else{
+      return `${this.class}s do not have skills.`;
+    }
+  }
+
+  get spells() {
+    const { spells, classes } = EXCEL_DM.system;
+    const classEntry = classes.find(e => e.name === this.class);
+    const slots = classEntry?.levels[this.level]?.spells;
+    
+    if (!slots) return `${this.class}s do not use magic.`;
+    
+    const className = this.class[0].toUpperCase() + this.class.slice(1);
+    const used = new Set(), selected = {};
+
+    slots.forEach((count, i) => {
+      if (!count) return;
+
+      let pool = spells[className].filter(s => +s.level === i + 1 && !used.has(s.name));
+        for (let j = 0; j < count && pool.length; j++) {
+          const idx = Math.floor(Math.random() * pool.length);
+          const s = pool.splice(idx, 1)[0];
+          selected[s.name] = { spell: s.name, level: s.level };
+          used.add(s.name);
+        }
+    });
+
+    return selected;
+  }
+ 
  
   addItem(itemType, itemName){
 

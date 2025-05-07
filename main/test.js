@@ -1,71 +1,89 @@
-const locs = new Manager("Locations");
-const npcs = new Manager("Characters");
+const loc = new Manager("Locations");
+const npc = new Manager("Characters");
+const mon = new Manager("Monsters");
 
-locs.add(
-    new Location({
-      name: "The Dark Cave",
-      description: "A dark and spooky cave.",
+
+EXCEL_DM.system.monsters.forEach(entry => {
+
+mon.add(
+
+  new Monster(entry)
+
+)
+
+  
+})
+
+
+
+loc.add(
+    new Hamlet({
+      name: "Hommlet",
+      description: "A small place with small-minded people.",
     })
   );
 
-locs.add(
-new Location({
-    name: "The Boat",
-    description: "A bobbing boat.",
+loc.add(
+new Tavern({
+    name: "Wicked Wench Inn",
+    description: "The only Inn for miles around.",
     type: "Boat"
     })
   );
 
 
-locs.n("The Dark Cave").addSub(locs.n("The Boat"));
+loc.n("Hommlet").addSub(loc.n("Wicked Wench Inn"));
 
-npcs.add(
+npc.add(
     new Character({
       name: "Even",
+      class: "Cleric",
+      level: 7,
       description: "A brave warrior from the north.",
       alignment: "Chaotic Good",
       race:"Halfling"
     })
   );
   
-  npcs.add(
+  npc.add(
     new Character({
       name: "Odd",
     })
   );
-  
-  npcs.n("Even").increaseLevel;
 
+  npc.add(
+    new Character({
+      name: "Even",
+    })
+  );
+  
+  npc.n("Even").increaseLevel;
 
   
-  npcs
+  npc
     .n("Even")
-    .goTo(locs.n("The Dark Cave"));
+    .goTo(loc.t("Tavern"));
 
-  // npcs
-  //   .n("Even")
-  //   .note("Entered Dark Cave", "We arrived just before nightfall...");
-  
-  
-  npcs
+   
+  npc
     .n("Odd")
-    .goTo(locs.n("The Dark Cave"));
+    .goTo(loc.n("Wicked Wench Inn"));
 
-  locs
-    .n("The Dark Cave")
-    .remChar(npcs.n("Odd"));
+  // loc
+  //   .n("Hommlet")
+  //   .remChar(npc.n("Odd"));
 
-    locs
-    .n("The Dark Cave")
+    loc
+    .n("Hommlet")
     .note("Note Number 1"); 
 
-    locs
-    .n("The Dark Cave")
+    loc
+    .n("Hommlet")
     .note("Note Number 2"); 
 
 
 
-locs.all().forEach((entry) => {
+loc.all().forEach((entry) => {
   log(entry)
 });
 

@@ -12,8 +12,29 @@ class Location extends Entry {
       this.type = location?.type || "Location";
     }
   
-    get occupants() {
-      return this.occupants;
+    get who() {
+
+      const occupants = {};
+
+    //   occupants[this.name] = [...this.occupants];
+
+    //   this.subLocations.forEach(subLoc => {
+    //     occupants[subLoc.name] = [...subLoc.occupants];
+    // })
+
+    function printNPC(loc){
+    loc.occupants.forEach(npc =>{
+      occupants[npc.name] = loc.name;
+    })
+    }
+
+    printNPC(this);
+
+    this.subLocations.forEach(loc => {printNPC(loc)})
+
+
+      return occupants
+
     }
 
     addSub(location){ //Add Location inside this Location
@@ -69,6 +90,14 @@ class Location extends Entry {
     monthlyIncome = "*";
     marketClass = 4;
     
+    constructor(loc) {
+      super(loc);
+    }
+  }
+
+  class Tavern extends Location {
+    type = "tavern"; 
+        
     constructor(loc) {
       super(loc);
     }

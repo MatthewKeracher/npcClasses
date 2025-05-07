@@ -4,9 +4,20 @@ class Manager { //Added level of abstraction for all classManagers.
     }
   
     n(name) {
-      const result = this.entities.find(
+      let result = this.entities.find( 
         ent => ent.name.toUpperCase() === name.toUpperCase()
       );
+
+      return checkForUndefined(result, `entities.n(${name})`);
+    }
+
+    search(name) {
+      let result = this.entities.filter( //filter first.
+        ent => ent.name.toUpperCase().includes(name.toUpperCase())
+      );
+
+      if(result.length === 1){result = result[0]}
+
       return checkForUndefined(result, `entities.n(${name})`);
     }
   
