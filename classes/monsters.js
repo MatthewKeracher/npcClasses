@@ -16,6 +16,7 @@ class Monster extends Entry{
       super(monster)
       this.type = "monster"
       this.name = this.reformatName(monster.name);
+      this.level = this.reformatLevel(monster.savingThrows);
       this.text = monster.description;
 
       //Combat
@@ -33,6 +34,15 @@ class Monster extends Entry{
       this.xp = monster.xp;
   
     }
+
+ 
+
+     reformatLevel(saveAs){
+      
+      const [monClass, monLevel] = saveAs.split(':').map(s => s.trim());
+      return monLevel;
+
+     }
 
      reformatName(name) {
         const cleaned = name.replace(/[\(\)\*]/g, '').trim();

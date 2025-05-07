@@ -13,6 +13,8 @@ function log(...args) {
     console.log(...args);
   }
 
+   
+
 function rollDice(numDice = 1, diceSides = 20, multiplier = 1) {
 
     let total = 0;

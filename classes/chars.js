@@ -12,7 +12,7 @@ class Character extends Entry {
     super(char);
 
     this.name = char?.name || "Anatoly Anonymous";
-    this.level = char?.level || "1";
+    this.level = char?.level || 1;
    
     this.race = char?.race || "Human";
     this.class = char?.class || "Fighter"; 
@@ -29,6 +29,8 @@ class Character extends Entry {
 
     this.alignment = char?.alignment || "Neutral Neutral";
     this.text = char?.text || "Write something interesting here.";
+
+    this.items = this.rollCoins();
 
     this.id = char?.id || crypto.randomUUID(); // Generates a UUID
 
@@ -138,6 +140,48 @@ class Character extends Entry {
     this.items[itemType].push(itemEntry);
     return this;
 
+  }
+
+
+  rollCoins() {
+    const currency =  ['Ora', 'Evdo', 'Zoti', 'Examino', 'Etos']
+    let totalResults = {};
+  
+    currency.forEach(coin => {
+      totalResults[coin] = 0;
+    });
+
+    
+    function roll() {
+      let results = {};
+  
+      for (let coin of currency) {
+        const roll1 = rollDice(1, 6);
+        const roll2 = rollDice(1, 6);
+        const roll3 = rollDice(1, 6);
+  
+        results[coin] = roll1 + roll2 + roll3;
+  
+        // Stop rolling if dice are not doubles
+        if (roll1 !== roll2 && 
+            roll1 !== roll3 && 
+            roll2 !== roll3) {
+          break;
+        }
+      }
+  
+      return results;
+    }
+  
+    for (let i = 0; i < parseInt(this.level); i++) {
+      const rollResult = roll(this.name);
+  
+    for (let coin in rollResult) {
+      totalResults[coin] += rollResult[coin];
+    }
+    }
+ 
+    return totalResults;
   }
 
   edit(key, value) {

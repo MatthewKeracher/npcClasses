@@ -19,15 +19,14 @@ mon.add(
 loc.add(
     new Hamlet({
       name: "Hommlet",
-      description: "A small place with small-minded people.",
+      text: "A small place with small-minded people.",
     })
   );
 
 loc.add(
 new Tavern({
     name: "Wicked Wench Inn",
-    description: "The only Inn for miles around.",
-    type: "Boat"
+    text: "The only Inn for miles around.",
     })
   );
 
@@ -36,42 +35,37 @@ loc.n("Hommlet").addSub(loc.n("Wicked Wench Inn"));
 
 npc.add(
     new Character({
-      name: "Even",
-      class: "Cleric",
-      level: 7,
-      description: "A brave warrior from the north.",
-      alignment: "Chaotic Good",
+      name: "Greybeard",
+      class: "Mage",
+      level: 2,
+      text: "An old man who doesn't remember.",
+      alignment: "Probably not good.",
       race:"Halfling"
     })
   );
   
   npc.add(
     new Character({
-      name: "Odd",
-    })
-  );
-
-  npc.add(
-    new Character({
-      name: "Even",
+      name: "Bravuro",
+      level: 20,
     })
   );
   
-  npc.n("Even").increaseLevel;
+  npc.n("Greybeard").increaseLevel;
 
   
   npc
-    .n("Even")
+    .n("Greybeard")
     .goTo(loc.t("Tavern"));
 
    
   npc
-    .n("Odd")
+    .n("Bravuro")
     .goTo(loc.n("Wicked Wench Inn"));
 
   // loc
   //   .n("Hommlet")
-  //   .remChar(npc.n("Odd"));
+  //   .remChar(npc.n("Bravuro"));
 
     loc
     .n("Hommlet")
@@ -85,6 +79,10 @@ npc.add(
 
 loc.all().forEach((entry) => {
   log(entry)
+});
+
+npc.all().forEach((entry) => {
+  log(`Name: ${entry.name}`,`Level: ${entry.level}`, entry.items)
 });
 
 
